@@ -21,6 +21,7 @@ async function fetchRedditComments(url) {
                     id: comment.data.id,
                     created_utc: comment.data.created_utc,
                     author: comment.data.author,
+                    score: comment.data.score,
                     body: comment.data.body
                 };
             });
@@ -40,7 +41,9 @@ async function fetchRedditComments(url) {
 async function displayCommentWithDelay(comment, displayDelay) {
     return new Promise(resolve => {
         setTimeout(() => {
-            console.log(comment.body); 
+            const dateTime = new Date(comment.created_utc * 1000); // Convert UTC timestamp to milliseconds
+            const formattedDateTime = dateTime.toLocaleString(); // Convert to local date time string
+            console.log(`${comment.author} @ ${formattedDateTime} [${comment.score}]: \n${comment.body}`);
             resolve();
         }, displayDelay);
     });
@@ -72,8 +75,22 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
     }
 }
 
+
+// Function to continuously fetch comments with a specified interval
+function startFetchingComments(url, displayDelay, lagTime, fetchInterval) {
+    // Fetch comments initially
+    fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
+
+    // Set interval to fetch comments continuously
+    setInterval(() => {
+        fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
+    }, fetchInterval);
+}
+
+
 // Example usage:
 const redditPostUrl = "https://www.reddit.com/r/MAFS_AU/comments/1bs4l7m/married_at_first_sight_s11e35_live_episode/";
 const displayDelay = 5000; // 5 seconds display delay between comments
 const lagTime = 1 * 60 * 1000; // 1 minute lag time in milliseconds
-fetchAndDisplayCommentsWithDelay(redditPostUrl, displayDelay, lagTime);
+const fetchInterval = 30000; // 30 seconds fetch interval
+startFetchingComments(redditPostUrl, displayDelay, lagTime, fetchInterval);

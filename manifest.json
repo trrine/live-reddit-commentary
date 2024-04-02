@@ -1,0 +1,6 @@
+{
+    "name": "Live Reddit Commentary",
+    "version": "1.0.0",
+    "description": "Displays live comments from Reddit for a live stream",
+    "manifest_version": 3
+}
