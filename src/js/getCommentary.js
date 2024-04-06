@@ -1,3 +1,5 @@
+let intervalId; // Global variable to store the interval ID
+
 function modifyRedditUrl(url) {
     // Prepare url to get JSON listing of subreddit post
     return url.slice(0, -1).concat(".json?sort=new");
@@ -78,19 +80,55 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
 
 // Function to continuously fetch comments with a specified interval
 function startFetchingComments(url, displayDelay, lagTime, fetchInterval) {
+    // Clear the previous interval, if any
+    clearInterval(intervalId);
+
     // Fetch comments initially
     fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
 
     // Set interval to fetch comments continuously
-    setInterval(() => {
+    intervalId = setInterval(() => {
         fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
     }, fetchInterval);
 }
 
 
+// Event listener for changes in Chrome storage
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    if (changes.redditPostUrl || changes.displayDelay || changes.lagTime || changes.fetchInterval || changes.fetchComments) {
+        // Retrieve the updated settings
+        chrome.storage.sync.get(["redditPostUrl", "displayDelay", "lagTime", "fetchInterval", "fetchComments"], function(data) {
+            const fetchComments = data.fetchComments;
+
+            // Check if fetchComments is set to "true"
+            if (fetchComments === "true") {
+                console.log(3);
+                const redditPostUrl = data.redditPostUrl;
+                const displayDelay = parseInt(data.displayDelay);
+                const lagTime = parseInt(data.lagTime);
+                const fetchInterval = parseInt(data.fetchInterval);
+                startFetchingComments(redditPostUrl, displayDelay, lagTime, fetchInterval);
+            }
+        });
+    }
+});
+
+
+// Initialise settings with default values
+chrome.storage.sync.set({
+            redditPostUrl: "",
+            displayDelay: 5000,
+            lagTime: 0,
+            fetchInterval: 30000,
+            fetchComments: "false"
+});
+
+
 // Example usage:
+/*
 const redditPostUrl = "https://www.reddit.com/r/MAFS_AU/comments/1bs4l7m/married_at_first_sight_s11e35_live_episode/";
 const displayDelay = 5000; // 5 seconds display delay between comments
 const lagTime = 1 * 60 * 1000; // 1 minute lag time in milliseconds
 const fetchInterval = 30000; // 30 seconds fetch interval
 startFetchingComments(redditPostUrl, displayDelay, lagTime, fetchInterval);
+*/
