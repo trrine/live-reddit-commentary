@@ -102,7 +102,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
             // Check if fetchComments is set to "true"
             if (fetchComments === "true") {
-                console.log(3);
                 const redditPostUrl = data.redditPostUrl;
                 const displayDelay = parseInt(data.displayDelay);
                 const lagTime = parseInt(data.lagTime);
@@ -122,13 +121,3 @@ chrome.storage.sync.set({
             fetchInterval: 30000,
             fetchComments: "false"
 });
-
-
-// Example usage:
-/*
-const redditPostUrl = "https://www.reddit.com/r/MAFS_AU/comments/1bs4l7m/married_at_first_sight_s11e35_live_episode/";
-const displayDelay = 5000; // 5 seconds display delay between comments
-const lagTime = 1 * 60 * 1000; // 1 minute lag time in milliseconds
-const fetchInterval = 30000; // 30 seconds fetch interval
-startFetchingComments(redditPostUrl, displayDelay, lagTime, fetchInterval);
-*/
