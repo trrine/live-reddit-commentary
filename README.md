@@ -4,4 +4,5 @@
 TO DO:
 - Sort comments by datetime ascending
 - Implement comment display
+- Handle replies
 - Add stop button and logic
