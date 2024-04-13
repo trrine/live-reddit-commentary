@@ -4,4 +4,3 @@
 TO DO:
 - Implement comment display
 - Handle replies
-- Add stop button and logic
