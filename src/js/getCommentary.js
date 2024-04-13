@@ -37,17 +37,32 @@ async function fetchRedditComments(url) {
     }
 }
 
+function formatUtcDate(utcDate) {
+    const dateTime = new Date(utcDate * 1000); // Convert UTC timestamp to milliseconds
+    return formattedDateTime = dateTime.toLocaleString(); // Convert to local date time string
+}
+
 
 // Function to display a single comment with a specified delay
 async function displayCommentWithDelay(comment, displayDelay) {
     return new Promise(resolve => {
         setTimeout(() => {
-            const dateTime = new Date(comment.created_utc * 1000); // Convert UTC timestamp to milliseconds
-            const formattedDateTime = dateTime.toLocaleString(); // Convert to local date time string
-            console.log(`${comment.author} @ ${formattedDateTime} [${comment.score}]: \n${comment.body}`);
+            addCommentToDisplay(comment);
             resolve();
         }, displayDelay);
     });
+}
+
+// Function to display a single comment in the comment section
+function addCommentToDisplay(comment) {
+    const commentSection = document.getElementById("commentSection");
+    const commentDiv = document.createElement("div");
+    commentDiv.classList.add("comment");
+    commentDiv.innerHTML = `<span class="commentHeader">${comment.author} @ ${formatUtcDate(comment.created_utc)} [${comment.score}]:</span><br>${comment.body}`;
+    commentSection.appendChild(commentDiv);
+
+    // Automatically scroll to the bottom
+    commentSection.scrollTop = commentSection.scrollHeight;
 }
 
 
@@ -92,6 +107,32 @@ async function startFetchingComments(url, displayDelay, lagTime) {
 }
 
 
+// Function to remove the comment display section
+function removeCommentSection() {
+    const commentSection = document.getElementById("commentSection");
+
+    // Check if the comment section element exists
+    if (commentSection) {
+        // Remove the comment section element from the DOM
+        commentSection.remove();
+        DISPLAYED_COMMENT_IDS = [];
+    }
+}
+
+
+// Function to create the comment display section
+function createCommentSection() {
+    let commentSection = document.getElementById("commentSection");
+    
+    // Create a new div element for the comment section
+    if (!commentSection) {
+        commentSection = document.createElement("div");
+        commentSection.id = "commentSection";
+
+        document.body.appendChild(commentSection);
+    }
+}
+
 // Event listener for changes in Chrome storage
 chrome.storage.onChanged.addListener(function(changes, namespace) {
     if (changes.redditPostUrl || changes.displayDelay || changes.lagTime || changes.fetchComments) {
@@ -102,12 +143,14 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
             // Check if fetchComments is set to "true"
             if (fetchComments === "true") {
                 const redditPostUrl = data.redditPostUrl;
-                const displayDelay = parseInt(data.displayDelay);
-                const lagTime = parseInt(data.lagTime);
+                const displayDelay = parseInt(data.displayDelay) * 1000; // Convert to milliseconds
+                const lagTime = parseInt(data.lagTime) * 1000;           // Convert to milliseconds
                 FETCH_COMMENTS = true;
+                createCommentSection();
                 startFetchingComments(redditPostUrl, displayDelay, lagTime);
             } else {
                 FETCH_COMMENTS = false;
+                removeCommentSection();
             }
         });
     }
@@ -117,7 +160,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 // Initialise settings with default values
 chrome.storage.sync.set({
             redditPostUrl: "",
-            displayDelay: 1000,
+            displayDelay: 3,
             lagTime: 0,
             fetchComments: "false"
 });
