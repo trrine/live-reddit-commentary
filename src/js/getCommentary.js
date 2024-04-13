@@ -80,6 +80,10 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
             await displayCommentWithDelay(comment, displayDelay);
             DISPLAYED_COMMENT_IDS.add(comment.id);
         }
+
+        if (!FETCH_COMMENTS) {
+            removeCommentSection();
+        }
     } catch (error) {
         console.error("Error fetching and displaying comments:", error);
     }
@@ -115,7 +119,6 @@ function removeCommentSection() {
     if (commentSection) {
         // Remove the comment section element from the DOM
         commentSection.remove();
-        DISPLAYED_COMMENT_IDS = [];
     }
 }
 
@@ -128,8 +131,8 @@ function createCommentSection() {
     if (!commentSection) {
         commentSection = document.createElement("div");
         commentSection.id = "commentSection";
-
         document.body.appendChild(commentSection);
+        dragElement(commentSection);
     }
 }
 
@@ -150,7 +153,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
                 startFetchingComments(redditPostUrl, displayDelay, lagTime);
             } else {
                 FETCH_COMMENTS = false;
-                removeCommentSection();
             }
         });
     }

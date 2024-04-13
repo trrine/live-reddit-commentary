@@ -10,7 +10,8 @@
         {
           "matches": ["<all_urls>"],
           "css": [ "src/css/style.css" ],
-          "js": ["src/js/getCommentary.js"]
+          "js": ["src/js/getCommentary.js",
+                 "src/js/dragElement.js"]
         }
       ],
     "action": {
