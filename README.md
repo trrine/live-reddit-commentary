@@ -6,6 +6,7 @@ TO DO
 
 ### TO DO:
 - Handle replies
+- Add dark mode
 
 ## How to Use
 TO DO
