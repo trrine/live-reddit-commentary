@@ -1,5 +1,7 @@
-let intervalId; // Global variable to store the interval ID
+let FETCH_COMMENTS = false;              // To check whether to keep fetching/displaying comments
+let DISPLAYED_COMMENT_IDS = new Set();   // To track displayed comments by their IDs
 
+// Function to prepare Reddit url for fetching comments
 function modifyRedditUrl(url) {
     // Prepare url to get JSON listing of subreddit post
     return url.slice(0, -1).concat(".json?sort=new");
@@ -28,10 +30,7 @@ async function fetchRedditComments(url) {
                 };
             });
             return comments;
-        } else {
-            console.log("No comments found");
-            return []; 
-        }
+        } 
     } catch (error) {
         console.error("Error fetching comments:", error);
         return []; 
@@ -54,23 +53,17 @@ async function displayCommentWithDelay(comment, displayDelay) {
 
 // Function to fetch and display comments with a specified display delay
 async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
-    // Set to track displayed comments by their IDs
-    const displayedCommentIds = new Set();
-
     try {
-        // Fetch comments from the Reddit post
-        const comments = await fetchRedditComments(url);
-
-        // Filter out comments that have already been displayed
-        const newComments = comments.filter(comment => {
+        let commentStack = await fetchRedditComments(url);
+        commentStack = commentStack.filter(comment => {
             const displayTime = parseFloat(comment.created_utc) + lagTime; // Calculate the time when the comment should be displayed
-            return !displayedCommentIds.has(comment.id) && displayTime <= Date.now(); // Check if the comment is eligible for display
+            return !DISPLAYED_COMMENT_IDS.has(comment.id) && displayTime <= Date.now(); // Check if the comment is eligible for display
         });
 
-        // Display new comments with a delay between each comment
-        for (const comment of newComments) {
+        while (commentStack.length !== 0 && FETCH_COMMENTS) {
+            const comment = commentStack.pop();
             await displayCommentWithDelay(comment, displayDelay);
-            displayedCommentIds.add(comment.id);
+            DISPLAYED_COMMENT_IDS.add(comment.id);
         }
     } catch (error) {
         console.error("Error fetching and displaying comments:", error);
@@ -79,25 +72,31 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
 
 
 // Function to continuously fetch comments with a specified interval
-function startFetchingComments(url, displayDelay, lagTime, fetchInterval) {
-    // Clear the previous interval, if any
-    clearInterval(intervalId);
+async function startFetchingComments(url, displayDelay, lagTime) {
+    const startTime = new Date();
 
     // Fetch comments initially
-    fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
+    await fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
 
-    // Set interval to fetch comments continuously
-    intervalId = setInterval(() => {
-        fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
-    }, fetchInterval);
+    const duration = new Date() - startTime;
+
+    // Continue fetching if fetchComments flag is true
+    if (FETCH_COMMENTS) {
+
+        // Wait if less than 5 seconds have passed since last fetch
+        setTimeout(function() {
+            startFetchingComments(url, displayDelay, lagTime);
+        }, 5000 - duration);
+        
+    }
 }
 
 
 // Event listener for changes in Chrome storage
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-    if (changes.redditPostUrl || changes.displayDelay || changes.lagTime || changes.fetchInterval || changes.fetchComments) {
+    if (changes.redditPostUrl || changes.displayDelay || changes.lagTime || changes.fetchComments) {
         // Retrieve the updated settings
-        chrome.storage.sync.get(["redditPostUrl", "displayDelay", "lagTime", "fetchInterval", "fetchComments"], function(data) {
+        chrome.storage.sync.get(["redditPostUrl", "displayDelay", "lagTime", "fetchComments"], function(data) {
             const fetchComments = data.fetchComments;
 
             // Check if fetchComments is set to "true"
@@ -105,8 +104,10 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
                 const redditPostUrl = data.redditPostUrl;
                 const displayDelay = parseInt(data.displayDelay);
                 const lagTime = parseInt(data.lagTime);
-                const fetchInterval = parseInt(data.fetchInterval);
-                startFetchingComments(redditPostUrl, displayDelay, lagTime, fetchInterval);
+                FETCH_COMMENTS = true;
+                startFetchingComments(redditPostUrl, displayDelay, lagTime);
+            } else {
+                FETCH_COMMENTS = false;
             }
         });
     }
@@ -116,8 +117,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 // Initialise settings with default values
 chrome.storage.sync.set({
             redditPostUrl: "",
-            displayDelay: 5000,
+            displayDelay: 1000,
             lagTime: 0,
-            fetchInterval: 30000,
             fetchComments: "false"
 });
