@@ -55,10 +55,10 @@ async function displayCommentWithDelay(comment, displayDelay) {
 
 // Function to display a single comment in the comment section
 function addCommentToDisplay(comment) {
-    const commentSection = document.getElementById("commentSection");
+    const commentSection = document.getElementById("comments");
     const commentDiv = document.createElement("div");
     commentDiv.classList.add("comment");
-    commentDiv.innerHTML = `<span class="commentHeader">${comment.author} @ ${formatUtcDate(comment.created_utc)} [${comment.score}]:</span><br>${comment.body}`;
+    commentDiv.innerHTML = `<p class="commentHeader">${comment.author} @ ${formatUtcDate(comment.created_utc)} [${comment.score}]:</p><p>${comment.body}</p>`;
     commentSection.appendChild(commentDiv);
 
     // Automatically scroll to the bottom
@@ -131,6 +131,17 @@ function createCommentSection() {
     if (!commentSection) {
         commentSection = document.createElement("div");
         commentSection.id = "commentSection";
+
+        // Create header + comment div
+        let commentSectionHeader = document.createElement("div");
+        commentSectionHeader.id = "commentSectionHeader";
+        commentSectionHeader.textContent = "Discussion";
+        commentSection.appendChild(commentSectionHeader);
+
+        let comments = document.createElement("div");
+        comments.id = "comments";
+        commentSection.appendChild(comments);
+
         document.body.appendChild(commentSection);
         dragElement(commentSection);
     }

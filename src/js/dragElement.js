@@ -4,7 +4,9 @@
 // Function to make comment section div draggable
 function dragElement(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    element.onmousedown = dragMouseDown;
+
+    // Assumes the element will have a child element with id = element + "Header"
+    document.getElementById(element.id + "Header").onmousedown = dragMouseDown; 
   
     function dragMouseDown(event) {
       event.preventDefault();
