@@ -5,7 +5,6 @@
 TO DO
 
 ### TO DO:
-- Make comment section moveable
 - Handle replies
 
 ## How to Use
