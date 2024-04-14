@@ -30,7 +30,9 @@ async function fetchRedditComments(url) {
                 };
             });
             return comments;
-        } 
+        }
+        return [];
+        
     } catch (error) {
         console.error("Error fetching comments:", error);
         return []; 
@@ -70,15 +72,18 @@ function addCommentToDisplay(comment) {
 async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
     try {
         let commentStack = await fetchRedditComments(url);
-        commentStack = commentStack.filter(comment => {
-            const displayTime = parseFloat(comment.created_utc) + lagTime; // Calculate the time when the comment should be displayed
-            return !DISPLAYED_COMMENT_IDS.has(comment.id) && displayTime <= Date.now(); // Check if the comment is eligible for display
-        });
 
-        while (commentStack.length !== 0 && FETCH_COMMENTS) {
-            const comment = commentStack.pop();
-            await displayCommentWithDelay(comment, displayDelay);
-            DISPLAYED_COMMENT_IDS.add(comment.id);
+        if (commentStack.length > 0) {
+            commentStack = commentStack.filter(comment => {
+                const displayTime = parseFloat(comment.created_utc) + lagTime; // Calculate the time when the comment should be displayed
+                return !DISPLAYED_COMMENT_IDS.has(comment.id) && displayTime <= Date.now(); // Check if the comment is eligible for display
+            });
+
+            while (commentStack.length !== 0 && FETCH_COMMENTS) {
+                const comment = commentStack.pop();
+                await displayCommentWithDelay(comment, displayDelay);
+                DISPLAYED_COMMENT_IDS.add(comment.id);
+            }
         }
 
         if (!FETCH_COMMENTS) {
@@ -170,10 +175,18 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 
-// Initialise settings with default values
-chrome.storage.sync.set({
+// Retrieve the current settings from Chrome storage
+chrome.storage.sync.get(["redditPostUrl", "displayDelay", "lagTime", "fetchComments"], function(data) {
+    // Check if the settings exist
+    const settingsExist = Object.keys(data).length !== 0;
+
+    // If the settings do not exist, set the default values
+    if (!settingsExist) {
+        chrome.storage.sync.set({
             redditPostUrl: "",
             displayDelay: 3,
             lagTime: 0,
             fetchComments: "false"
+        });
+    }
 });
