@@ -58,13 +58,16 @@ async function displayCommentWithDelay(comment, displayDelay) {
 // Function to display a single comment in the comment section
 function addCommentToDisplay(comment) {
     const commentSection = document.getElementById("comments");
-    const commentDiv = document.createElement("div");
-    commentDiv.classList.add("comment");
-    commentDiv.innerHTML = `<p class="commentHeader">${comment.author} @ ${formatUtcDate(comment.created_utc)} [${comment.score}]:</p><p>${comment.body}</p>`;
-    commentSection.appendChild(commentDiv);
+    
+    if (commentSection) {
+        const commentDiv = document.createElement("div");
+        commentDiv.classList.add("comment");
+        commentDiv.innerHTML = `<p class="commentHeader">${comment.author} @ ${formatUtcDate(comment.created_utc)} [${comment.score}]:</p><p>${comment.body}</p>`;
+        commentSection.appendChild(commentDiv);
 
-    // Automatically scroll to the bottom
-    commentSection.scrollTop = commentSection.scrollHeight;
+        // Automatically scroll to the bottom
+        commentSection.scrollTop = commentSection.scrollHeight;
+    }
 }
 
 
@@ -73,7 +76,7 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
     try {
         let commentStack = await fetchRedditComments(url);
 
-        if (commentStack.length > 0) {
+        if (commentStack.length !== 0) {
             commentStack = commentStack.filter(comment => {
                 const displayTime = parseFloat(comment.created_utc) + lagTime; // Calculate the time when the comment should be displayed
                 return !DISPLAYED_COMMENT_IDS.has(comment.id) && displayTime <= Date.now(); // Check if the comment is eligible for display
