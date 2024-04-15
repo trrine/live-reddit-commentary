@@ -1,16 +1,19 @@
 let FETCH_COMMENTS = false;              // To check whether to keep fetching/displaying comments
 let DISPLAYED_COMMENT_IDS = new Set();   // To track displayed comments by their IDs
 
+
 // Function to prepare url to get JSON listing of subreddit post
 function modifyRedditUrl(url) {
     return url.slice(0, -1).concat(".json?sort=new");
 }
+
 
 // Function to toggle dark mode
 function toggleDarkMode() {
     const commentSection = document.getElementById("commentSection");
     commentSection.classList.toggle("darkMode");
 }
+
 
 // Function to extract comments from Reddit API response data
 function extractComments(data) {
@@ -31,6 +34,7 @@ function extractComments(data) {
     return [];
 }
 
+
 // Function to fetch comments from a Reddit post
 async function fetchRedditComments(url) {
     try {
@@ -44,6 +48,7 @@ async function fetchRedditComments(url) {
         return []; 
     }
 }
+
 
 function formatUtcDate(utcDate) {
     const dateTime = new Date(utcDate * 1000); // Convert UTC timestamp to milliseconds
@@ -61,8 +66,11 @@ async function displayCommentWithDelay(comment, displayDelay) {
     });
 }
 
+
 // Function to display a single comment in the comment section
 function addCommentToDisplay(comment) {
+    if (!FETCH_COMMENTS) return;
+    
     const commentSection = document.getElementById("comments");
     
     if (commentSection) {
@@ -102,7 +110,7 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
 }
 
 
-// Function to continuously fetch comments with a specified interval
+// Function to continuously fetch comments 
 async function startFetchingComments(url, displayDelay, lagTime) {
     const startTime = new Date();
 
