@@ -1,37 +1,37 @@
 let FETCH_COMMENTS = false;              // To check whether to keep fetching/displaying comments
 let DISPLAYED_COMMENT_IDS = new Set();   // To track displayed comments by their IDs
 
-// Function to prepare Reddit url for fetching comments
+// Function to prepare url to get JSON listing of subreddit post
 function modifyRedditUrl(url) {
-    // Prepare url to get JSON listing of subreddit post
     return url.slice(0, -1).concat(".json?sort=new");
 }
 
+// Function to extract comments from Reddit API response data
+function extractComments(data) {
+    // Check if the required data structure exists
+    if (data && data[1] && data[1].data.children) {
+        // Extract comments from the data and map them to a more simplified format
+        const comments = data[1].data.children.map(comment => {
+            return {
+                id: comment.data.id,
+                created_utc: comment.data.created_utc,
+                author: comment.data.author,
+                score: comment.data.score,
+                body: comment.data.body
+            };
+        });
+        return comments;
+    }
+    return [];
+}
 
 // Function to fetch comments from a Reddit post
 async function fetchRedditComments(url) {
     try {
-        // Modify the URL to get JSON data
         const apiUrl = modifyRedditUrl(url);
-
-        // Fetch data from the Reddit API
         const response = await fetch(apiUrl);
         const data = await response.json();
-
-        // Check if data is available
-        if (data && data[1] && data[1].data.children) {
-            const comments = data[1].data.children.map(comment => {
-                return {
-                    id: comment.data.id,
-                    created_utc: comment.data.created_utc,
-                    author: comment.data.author,
-                    score: comment.data.score,
-                    body: comment.data.body
-                };
-            });
-            return comments;
-        }
-        return [];
+        return extractComments(data);
         
     } catch (error) {
         console.error("Error fetching comments:", error);
@@ -76,19 +76,17 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
     try {
         let commentStack = await fetchRedditComments(url);
 
-        if (commentStack.length !== 0) {
-            commentStack = commentStack.filter(comment => {
+        commentStack = (commentStack || []).filter(comment => {
                 const displayTime = parseFloat(comment.created_utc) + lagTime; // Calculate the time when the comment should be displayed
                 return !DISPLAYED_COMMENT_IDS.has(comment.id) && displayTime <= Date.now(); // Check if the comment is eligible for display
-            });
+        });
 
-            while (commentStack.length !== 0 && FETCH_COMMENTS) {
-                const comment = commentStack.pop();
-                await displayCommentWithDelay(comment, displayDelay);
-                DISPLAYED_COMMENT_IDS.add(comment.id);
-            }
+        while (commentStack.length !== 0 && FETCH_COMMENTS) {
+            const comment = commentStack.pop();
+            await displayCommentWithDelay(comment, displayDelay);
+            DISPLAYED_COMMENT_IDS.add(comment.id);
         }
-
+        
         if (!FETCH_COMMENTS) {
             removeCommentSection();
         }
@@ -122,12 +120,7 @@ async function startFetchingComments(url, displayDelay, lagTime) {
 // Function to remove the comment display section
 function removeCommentSection() {
     const commentSection = document.getElementById("commentSection");
-
-    // Check if the comment section element exists
-    if (commentSection) {
-        // Remove the comment section element from the DOM
-        commentSection.remove();
-    }
+    if (commentSection) commentSection.remove();
 }
 
 
@@ -150,10 +143,22 @@ function createCommentSection() {
         comments.id = "comments";
         commentSection.appendChild(comments);
 
+        // Create toggle dark mode button
+        let toggleDarkModeButton = document.createElement("button");
+        toggleDarkModeButton.textContent = "Toggle Dark Mode";
+        toggleDarkModeButton.id = "toggleDarkModeButton";
+        commentSection.appendChild(toggleDarkModeButton);
+
         document.body.appendChild(commentSection);
         dragElement(commentSection);
+
+        // Add event listener to the toggle dark mode button
+        toggleDarkModeButton.addEventListener("click", function() {
+            toggleDarkMode();
+        });
     }
 }
+
 
 // Event listener for changes in Chrome storage
 chrome.storage.onChanged.addListener(function(changes, namespace) {
@@ -178,9 +183,8 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 
-// Retrieve the current settings from Chrome storage
+// Initialise settings 
 chrome.storage.sync.get(["redditPostUrl", "displayDelay", "lagTime", "fetchComments"], function(data) {
-    // Check if the settings exist
     const settingsExist = Object.keys(data).length !== 0;
 
     // If the settings do not exist, set the default values

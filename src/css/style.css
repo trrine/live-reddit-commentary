@@ -49,3 +49,8 @@
     font-weight: bold;
     font-size: 10px;
 }
+
+.darkMode {
+    background-color: #333;
+    color: #fff; 
+}

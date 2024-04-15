@@ -8,10 +8,11 @@
       ],
     "content_scripts": [
         {
-          "matches": ["<all_urls>"],
-          "css": [ "src/css/style.css" ],
-          "js": ["src/js/getCommentary.js",
-                 "src/js/dragElement.js"]
+          "matches": [ "<all_urls>" ],
+          "css":  [ "src/css/style.css" ],
+          "js":   [ "src/js/getCommentary.js",
+                    "src/js/dragElement.js",
+                    "src/js/darkModeToggle.js" ]
         }
       ],
     "action": {
