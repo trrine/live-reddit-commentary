@@ -6,6 +6,12 @@ function modifyRedditUrl(url) {
     return url.slice(0, -1).concat(".json?sort=new");
 }
 
+// Function to toggle dark mode
+function toggleDarkMode() {
+    const commentSection = document.getElementById("commentSection");
+    commentSection.classList.toggle("darkMode");
+}
+
 // Function to extract comments from Reddit API response data
 function extractComments(data) {
     // Check if the required data structure exists
