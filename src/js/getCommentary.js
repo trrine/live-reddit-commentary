@@ -178,10 +178,8 @@ chrome.storage.session.get(["redditPostUrl", "displayDelay", "lagTime", "fetchCo
             displayDelay: 3,
             lagTime: 0,
             fetchComments: "false"
-        }).then(() => {
-            console.log("Session storage initialized with default values.");
         }).catch(error => {
-            console.error("Error initializing session storage with default values:", error);
+            console.error("Error initialising session storage with default values:", error);
         });
     }
 });
