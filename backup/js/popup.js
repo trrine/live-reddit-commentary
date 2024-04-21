@@ -1,8 +1,8 @@
-// Ensure popup is initialized correctly each time
+// Ensure popup is initialised correct each time
 window.onload = function() {
     const toggleButton = document.getElementById("toggleButton");
 
-    chrome.storage.session.get(["redditPostUrl", "displayDelay", "lagTime", "fetchComments"], function(data) {
+    chrome.storage.sync.get(["redditPostUrl", "displayDelay", "lagTime", "fetchComments"], function(data) {
         const redditPostUrl = data.redditPostUrl;
         const displayDelay = parseInt(data.displayDelay);
         const lagTime = parseInt(data.lagTime);
@@ -41,7 +41,7 @@ document.getElementById("toggleButton").onclick = function () {
         toggleButton.textContent = "Stop";
 
         // Save settings to Chrome storage
-        chrome.storage.session.set({
+        chrome.storage.sync.set({
             redditPostUrl: redditPostUrl,
             displayDelay: displayDelay,
             lagTime: lagTime,
@@ -52,7 +52,7 @@ document.getElementById("toggleButton").onclick = function () {
         toggleButton.textContent = "Start";
         
         // Set fetchComments to false
-        chrome.storage.session.set({
+        chrome.storage.sync.set({
             fetchComments: "false"
         });  
     }
