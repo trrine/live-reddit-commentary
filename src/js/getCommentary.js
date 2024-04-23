@@ -133,6 +133,7 @@ function createCommentSection() {
     if (!commentSection) {
         commentSection = document.createElement("div");
         commentSection.id = "commentSection";
+        commentSection.classList.add("commentSection");
 
         // Create header + comment div
         let commentSectionHeader = document.createElement("div");
@@ -144,16 +145,11 @@ function createCommentSection() {
         comments.id = "comments";
         commentSection.appendChild(comments);
 
-        // Create toggle dark mode button
-        let toggleDarkModeButton = document.createElement("button");
-        toggleDarkModeButton.textContent = "Toggle Dark Mode";
-        toggleDarkModeButton.id = "toggleDarkModeButton";
-        commentSection.appendChild(toggleDarkModeButton);
-
         document.body.appendChild(commentSection);
+        dragElement(commentSection);
 
         // Add event listener to the toggle dark mode button
-        toggleDarkModeButton.addEventListener("click", function() {
+        commentSection.addEventListener("click", function() {
             toggleDarkMode();
         });
     }
