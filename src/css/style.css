@@ -18,11 +18,10 @@
 
 #commentSectionHeader {
     cursor: move;
-    z-index: 10;
     font-size: 16px;
     font-weight: bold;
     padding-top: 10px;
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
     position: absolute;
     width: 100%;
     border-bottom: 1px solid #ccc;
@@ -36,9 +35,7 @@
     overflow-y: auto; /* Enable vertical scrollbar if content exceeds the height */
     margin: auto;
     font-size: 12px;
-}
-
-#comments:hover {
+    padding-top: 10px;
     cursor: pointer;
 }
 
