@@ -1,7 +1,7 @@
 # Live Reddit Commentary (in progress)
  Chrome extension for displaying live Reddit comments while streaming TV shows.
 
- ![image](https://github.com/trrine/live-reddit-commentary/assets/41973043/08da2d33-5b0e-41df-b6df-f42d93894fd8)
+<img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/example.png" height="300">
 
 
 ## Description
