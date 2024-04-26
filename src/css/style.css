@@ -1,8 +1,8 @@
 .commentSection {
     font-family: Verdana, Geneva, sans-serif;
     position: absolute;
-    top: 40px;
-    right: 10px;
+    top: 50%;
+    right: 5%;
     width: 340px;
     height: 400px;
     overflow: hidden;
@@ -12,6 +12,7 @@
     opacity: 0.75;
     color: black;
     resize: both;
+    z-index: 10;
 }
 
 
