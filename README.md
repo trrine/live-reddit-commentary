@@ -10,7 +10,7 @@ TO DO
 
 
 ## How to Use
-<center><img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/example2.png" width="300"></center>
+<img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/example2.png" width="300">
 
 TO DO
 
