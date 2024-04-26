@@ -4,9 +4,7 @@
 ## Description
 TO DO
 
-### TO DO:
-- Handle replies
-- Add dark mode
+
 
 ## How to Use
 TO DO
@@ -16,3 +14,7 @@ The Reddit API only allows fetching the 1000 most recent comments on a post. For
 
 ## Acknowledgements
 - Code for making comment section draggable adapted from [W3Schools](https://www.w3schools.com/howto/howto_js_draggable.asp).
+
+### TO DO:
+- Handle replies
+- Isolate to single tab
