@@ -127,39 +127,30 @@ function removeCommentSection() {
 
 // Function to create the comment display section
 function createCommentSection() {
-    let commentSection = document.getElementById("commentSection");
-    
+    removeCommentSection();
+
     // Create a new div element for the comment section
-    if (!commentSection) {
-        commentSection = document.createElement("div");
-        commentSection.id = "commentSection";
-        commentSection.classList.add("commentSection");
+    let commentSection = document.createElement("div");
+    commentSection.id = "commentSection";
+    commentSection.classList.add("commentSection");
 
-        // Create header + comment div
-        let commentSectionHeader = document.createElement("div");
-        commentSectionHeader.id = "commentSectionHeader";
-        commentSectionHeader.textContent = "Discussion";
-        commentSection.appendChild(commentSectionHeader);
+    // Create header + comment div
+    let commentSectionHeader = document.createElement("div");
+    commentSectionHeader.id = "commentSectionHeader";
+    commentSectionHeader.textContent = "Discussion";
+    commentSection.appendChild(commentSectionHeader);
 
-        let comments = document.createElement("div");
-        comments.id = "comments";
-        commentSection.appendChild(comments);
+    let comments = document.createElement("div");
+    comments.id = "comments";
+    commentSection.appendChild(comments);
 
-        document.body.appendChild(commentSection);
-        dragElement(commentSection);
+    document.body.appendChild(commentSection);
+    dragElement(commentSection);
 
-        // Add event listener to the toggle dark mode button
-        commentSection.addEventListener("click", function() {
-            toggleDarkMode();
-        });
-    }
-}
-
-async function initialiseExtension() {
-    const response = await chrome.storage.sesson.setAccessLevel("TRUSTED_AND_UNTRUSTED_CONTEXTS").catch((err) => {
-        console.error(err);
-        return "default response";
-      });
+    // Add event listener to the toggle dark mode button
+    commentSection.addEventListener("click", function() {
+        toggleDarkMode();
+    });
 }
 
 
