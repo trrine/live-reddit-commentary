@@ -10,6 +10,8 @@ TO DO
 
 
 ## How to Use
+![image](https://github.com/trrine/live-reddit-commentary/assets/41973043/41b58bec-fa5a-4ba1-98c9-a65bade5d6dd)
+
 TO DO
 
 ### Limitations
