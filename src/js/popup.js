@@ -9,7 +9,7 @@ window.onload = function() {
         const fetchComments = data.fetchComments;
 
         // Update input fields
-        document.getElementById("redditPostUrl").value = redditPostUrl;
+        document.getElementById("redditPostUrl").value = redditPostUrl || "";
         document.getElementById("displayDelay").value = displayDelay || 3;    // Default is 3 s
         document.getElementById("lagTime").value = lagTime || 0;              // Default is 0 s
 
@@ -22,7 +22,8 @@ window.onload = function() {
     });
 }
 
-// Handle clicking the "Start" button
+
+// Handle clicking the start/stop button
 document.getElementById("toggleButton").onclick = function () {
     const toggleButton = document.getElementById("toggleButton");
 
@@ -34,6 +35,12 @@ document.getElementById("toggleButton").onclick = function () {
         // Check if mandatory input (URL) is provided
         if (!redditPostUrl) {
             alert("Please provide a Reddit post URL.");
+            return;
+        }
+
+        // Check if displayDelay is invalid
+        if (displayDelay < 0) {
+            alert("Display Delay cannot be a negative number.");
             return;
         }
 

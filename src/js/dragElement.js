@@ -1,7 +1,6 @@
 // Code adapted from W3Schools:
 // https://www.w3schools.com/howto/howto_js_draggable.asp
 
-// Function to make comment section div draggable
 function dragElement(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 

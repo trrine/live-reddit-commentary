@@ -1,18 +1,18 @@
 let FETCH_COMMENTS = false;              // To check whether to keep fetching/displaying comments
 let DISPLAYED_COMMENT_IDS = new Set();   // To track displayed comments by their IDs
 
-// Function to prepare url to get JSON listing of subreddit post
+
 function modifyRedditUrl(url) {
     return url.slice(0, -1).concat(".json?sort=new");
 }
 
-// Function to toggle dark mode
+
 function toggleDarkMode() {
     const commentSection = document.getElementById("commentSection");
     commentSection.classList.toggle("darkMode");
 }
 
-// Function to extract comments from Reddit API response data
+
 function extractComments(data) {
     if (data && data[1] && data[1].data.children) {
         const comments = data[1].data.children.map(comment => {
@@ -29,7 +29,7 @@ function extractComments(data) {
     return [];
 }
 
-// Function to fetch comments from a Reddit post
+
 async function fetchRedditComments(url) {
     try {
         const apiUrl = modifyRedditUrl(url);
@@ -48,7 +48,7 @@ function formatUtcDate(utcDate) {
     return formattedDateTime = dateTime.toLocaleString();
 }
 
-// Function to display a single comment with a specified delay
+
 async function displayCommentWithDelay(comment, displayDelay) {
     return new Promise(resolve => {
         setTimeout(() => {
@@ -58,7 +58,7 @@ async function displayCommentWithDelay(comment, displayDelay) {
     });
 }
 
-// Function to display a single comment in the comment section
+
 function addCommentToDisplay(comment) {
     if (!FETCH_COMMENTS) return;
     
@@ -75,7 +75,7 @@ function addCommentToDisplay(comment) {
     }
 }
 
-// Function to fetch and display comments with a specified display delay
+
 async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
     try {
         let commentStack = await fetchRedditComments(url);
@@ -99,13 +99,12 @@ async function fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime) {
     }
 }
 
-// Function to continuously fetch comments 
+
 async function startFetchingComments(url, displayDelay, lagTime) {
     const startTime = new Date();
 
     // Fetch comments initially
     await fetchAndDisplayCommentsWithDelay(url, displayDelay, lagTime);
-
     const duration = new Date() - startTime;
 
     // Continue fetching if fetchComments flag is true
@@ -119,13 +118,13 @@ async function startFetchingComments(url, displayDelay, lagTime) {
     }
 }
 
-// Function to remove the comment display section
+
 function removeCommentSection() {
     const commentSection = document.getElementById("commentSection");
     if (commentSection) commentSection.remove();
 }
 
-// Function to create the comment display section
+
 function createCommentSection() {
     removeCommentSection();
 
