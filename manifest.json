@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Live Reddit Commentary",
     "version": "1.0.0",
-    "description": "Displays live comments from Reddit for a live stream",
+    "description": "Displays live comments from Reddit for live streamed TV shows.",
     "permissions": [
         "storage"
       ],
