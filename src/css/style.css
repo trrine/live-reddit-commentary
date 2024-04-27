@@ -12,7 +12,7 @@
     opacity: 0.75;
     color: black;
     resize: both;
-    z-index: 10; /* Move element to front */
+    z-index: 2147483647; /* Move element to front */
 }
 
 
