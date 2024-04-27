@@ -18,9 +18,9 @@ The Live Reddit Commentary Chrome extension allows you to effortlessly view real
 Install the Live Reddit Commentary Chrome extension from the Chrome Web Store.
 2. <b>Navigate to Your Content:</b> Before using the extension, navigate to the webpage where you want to view live comments, such as a live TV show stream.
 3. <b>Access the Settings and Set Parameters:</b> Click on the extension icon in your browser's toolbar to access the settings. 
- - Reddit Post URL: Enter the URL of the live discussion post on Reddit that corresponds to the content you're watching.
- - Display Delay (seconds): Set the time interval between each displayed comment.
- - Lag Time (seconds): If you're watching a live broadcast with a delay, enter the lag time to avoid spoilers.
+- Reddit Post URL: Enter the URL of the live discussion post on Reddit that corresponds to the content you're watching.
+- Display Delay (seconds): Set the time interval between each displayed comment.
+- Lag Time (seconds): If you're watching a live broadcast with a delay, enter the lag time to avoid spoilers.
 4. <b>Start Displaying Comments:</b> Once the settings are configured, click "Start" to begin displaying comments in real time. The comment section will appear on the webpage where you've navigated.
 5. <b>Customise the Comment Section:</b>
 - Drag and Drop: Move the comment section to a different position on your screen by dragging the header.
@@ -30,6 +30,7 @@ Install the Live Reddit Commentary Chrome extension from the Chrome Web Store.
 
 <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup.png" height="400"> <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup_dark.png" height="400">
 
+<b>Note:</b> Duplicate comment displays are not possible. If you attempt to use the extension from a page while it is already running on another page, clicking the "Stop" button will halt comments from being displayed on the other page. The extension operates within a single session at a time.
 
 
 ### Limitations
