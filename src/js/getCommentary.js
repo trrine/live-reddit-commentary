@@ -8,7 +8,7 @@ function modifyRedditUrl(url) {
 
 
 function toggleDarkMode() {
-    const commentSection = document.getElementById("commentSection");
+    const commentSection = document.getElementById("redditCommentSection");
     commentSection.classList.toggle("darkMode");
 }
 
@@ -62,12 +62,12 @@ async function displayCommentWithDelay(comment, displayDelay) {
 function addCommentToDisplay(comment) {
     if (!FETCH_COMMENTS) return;
     
-    const commentSection = document.getElementById("comments");
+    const commentSection = document.getElementById("redditComments");
     
     if (commentSection) {
         const commentDiv = document.createElement("div");
-        commentDiv.classList.add("comment");
-        commentDiv.innerHTML = `<p class="commentHeader">${comment.author} @ ${formatUtcDate(comment.created_utc)} [${comment.score}]:</p><p>${comment.body}</p>`;
+        commentDiv.classList.add("redditComment");
+        commentDiv.innerHTML = `<p class="redditCommentHeader">${comment.author} @ ${formatUtcDate(comment.created_utc)} [${comment.score}]:</p><p>${comment.body}</p>`;
         commentSection.appendChild(commentDiv);
 
         // Automatically scroll to the bottom
@@ -120,7 +120,7 @@ async function startFetchingComments(url, displayDelay, lagTime) {
 
 
 function removeCommentSection() {
-    const commentSection = document.getElementById("commentSection");
+    const commentSection = document.getElementById("redditCommentSection");
     if (commentSection) commentSection.remove();
 }
 
@@ -130,17 +130,17 @@ function createCommentSection() {
 
     // Create a new div element for the comment section
     let commentSection = document.createElement("div");
-    commentSection.id = "commentSection";
+    commentSection.id = "redditCommentSection";
     commentSection.classList.add("commentSection");
 
     // Create header + comment div
     let commentSectionHeader = document.createElement("div");
-    commentSectionHeader.id = "commentSectionHeader";
+    commentSectionHeader.id = "redditCommentSectionHeader";
     commentSectionHeader.textContent = "Discussion";
     commentSection.appendChild(commentSectionHeader);
 
     let comments = document.createElement("div");
-    comments.id = "comments";
+    comments.id = "redditComments";
     commentSection.appendChild(comments);
 
     document.body.appendChild(commentSection);

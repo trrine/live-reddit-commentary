@@ -1,4 +1,4 @@
-.commentSection {
+#redditCommentSection {
     font-family: Verdana, Geneva, sans-serif;
     position: absolute;
     top: 50%;
@@ -16,18 +16,17 @@
 }
 
 
-#commentSectionHeader {
+#redditCommentSectionHeader {
     cursor: move;
     font-size: 16px;
     font-weight: bold;
     padding-top: 10px;
-    /*padding-bottom: 10px;*/
     position: absolute;
     width: 100%;
     border-bottom: 1px solid #ccc;
 }
 
-#comments {
+#redditComments {
     position: absolute;
     top: 50px; /* Adjust top position to accommodate the header */
     width: 95%; 
@@ -39,7 +38,7 @@
     cursor: pointer;
 }
 
-.comment {
+.redditComment {
     margin-bottom: 10px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
@@ -47,12 +46,12 @@
     line-height: 1.5;
 }
 
-.commentHeader {
+.redditCommentHeader {
     font-weight: bold;
     font-size: 10px;
 }
 
-#commentSection.darkMode {
+#redditCommentSection.darkMode {
     background-color: #333;
     color: #fff; 
     scrollbar-color: #999 #333;

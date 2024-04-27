@@ -1,24 +1,24 @@
-body {
+.popup-container {
     font-family: Verdana, Geneva, sans-serif;
     background-color: #f0f0f0;
     padding: 20px;
     width: 300px; 
 }
 
-h1 {
+.popup-container h1 {
     color: #333;
     text-align: center; 
     padding-bottom: 10px;
 }
 
-label {
+.popup-container label {
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
 }
 
-input[type="text"],
-input[type="number"] {
+.popup-container input[type="text"],
+.popup-container input[type="number"] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -27,7 +27,7 @@ input[type="number"] {
     box-sizing: border-box;
 }
 
-button {
+.popup-container button {
     padding: 10px 20px;
     background-color: #4cac87;
     color: #fff;
@@ -38,6 +38,6 @@ button {
     margin: 0 auto; /* Center the button */
 }
 
-button:hover {
+.popup-container button:hover {
     background-color: #337d61;
 }
