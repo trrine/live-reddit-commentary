@@ -16,17 +16,17 @@ The Live Reddit Commentary Chrome extension allows you to effortlessly view real
 ## How to Use
 1. <b>Install the Extension:</b> 
 Install the Live Reddit Commentary Chrome extension from the Chrome Web Store.
-2. <b>Navigate to Your Content:</b> Before using the extension, navigate to the webpage where you want to view live comments, such as a live TV show stream or an ongoing event discussion.
-3. Access the Settings and Set Parameters: Click on the extension icon in your browser's toolbar to access the settings. 
-- Reddit Post URL: Enter the URL of the live discussion post on Reddit that corresponds to the content you're watching.
-- Display Delay (seconds): Set the time interval between each displayed comment.
-- Lag Time (seconds): If you're watching a live broadcast with a delay, enter the lag time to avoid spoilers.
-4. Start Displaying Comments: Once the settings are configured, click "Start" to begin displaying comments in real time. The comment section will appear on the webpage where you've navigated.
-5. Customise the Comment Section:
+2. <b>Navigate to Your Content:</b> Before using the extension, navigate to the webpage where you want to view live comments, such as a live TV show stream.
+3. <b>Access the Settings and Set Parameters:</b> Click on the extension icon in your browser's toolbar to access the settings. 
+ - Reddit Post URL: Enter the URL of the live discussion post on Reddit that corresponds to the content you're watching.
+ - Display Delay (seconds): Set the time interval between each displayed comment.
+ - Lag Time (seconds): If you're watching a live broadcast with a delay, enter the lag time to avoid spoilers.
+4. <b>Start Displaying Comments:</b> Once the settings are configured, click "Start" to begin displaying comments in real time. The comment section will appear on the webpage where you've navigated.
+5. <b>Customise the Comment Section:</b>
 - Drag and Drop: Move the comment section to a different position on your screen by dragging the header.
 - Resize: Adjust the size of the comment section by dragging the bottom-right corner of the box.
 - Toggle Dark Mode: Click within the comment section to switch between light and dark mode for comfortable viewing.
-6. Stop Fetching Comments: To stop fetching and displaying comments, click "Stop". This will remove the comment section from the webpage.
+6. <b>Stop Fetching Comments:</n> To stop fetching and displaying comments, click "Stop". This will remove the comment section from the webpage.
 
 <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup.png" height="400"> <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup_dark.png" height="400">
 
