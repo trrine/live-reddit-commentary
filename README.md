@@ -43,3 +43,4 @@ Multiple, concurrent comment displays result in buggy behaviour. If you attempt 
 ### TO DO:
 - Handle replies
 - Isolate to single tab
+- Handle full screen videos
