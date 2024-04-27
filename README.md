@@ -26,7 +26,7 @@ Install the Live Reddit Commentary Chrome extension from the Chrome Web Store.
 - Drag and Drop: Move the comment section to a different position on your screen by dragging the header.
 - Resize: Adjust the size of the comment section by dragging the bottom-right corner of the box.
 - Toggle Dark Mode: Click within the comment section to switch between light and dark mode for comfortable viewing.
-6. <b>Stop Fetching Comments:</b> To stop fetching and displaying comments, click "Stop". This will remove the comment section from the webpage.
+6. <b>Stop Fetching Comments:</b> To stop fetching and displaying comments, click "Stop". This will remove the comment section from the webpage. It is important to remember to do this, or the extension will continue to attempt to fetch comments even after the tab has been closed.
 
 <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup.png" height="400"> <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup_dark.png" height="400">
 
