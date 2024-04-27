@@ -10,7 +10,7 @@ The Live Reddit Commentary Chrome extension allows you to effortlessly view real
 ### Features:
 - View real-time comments from Reddit discussions during live TV show streams
 - Customise display delay and lag time for a personalised experience
-- Integrated dark mode toggle and resizable comment section 
+- Resizable and draggable comment section with integrated dark mode toggle
 
 
 ## How to Use
