@@ -14,7 +14,7 @@ The Live Reddit Commentary Chrome extension allows you to effortlessly view real
 
 
 ## How to Use
-1. Install the Extension: Install the Live Reddit Commentary Chrome extension from the Chrome Web Store.
+<b>1. Install the Extension: Install the Live Reddit Commentary Chrome extension from the Chrome Web Store.</b>
 2. Navigate to Your Content: Before using the extension, navigate to the webpage where you want to view live comments, such as a live TV show stream or an ongoing event discussion.
 3. Access the Settings and Set Parameters: Click on the extension icon in your browser's toolbar to access the settings. 
 - Reddit Post URL: Enter the URL of the live discussion post on Reddit that corresponds to the content you're watching.
