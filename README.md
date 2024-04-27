@@ -35,7 +35,7 @@ Install the Live Reddit Commentary Chrome extension from the Chrome Web Store.
 ### Limitations
 The Reddit API only allows fetching the 1000 most recent comments on a post. For this reason, this extension is best suited for watching live-streamed rather than recorded TV content - even with the lag option.
 
-Multiple, concurrent comment displays are not possible. If you attempt to use the extension from a page while it is already running on another page, clicking the "Stop" button will halt comments from being displayed on the other page. The extension operates within a single session at a time.
+Multiple, concurrent comment displays result in buggy behaviour. If you attempt to use the extension from a page while it is already running on another page, clicking the "Stop" button will halt comments from being displayed on the other page. The extension operates within a single session at a time.
 
 ## Acknowledgements
 - Code for making comment section draggable adapted from [W3Schools](https://www.w3schools.com/howto/howto_js_draggable.asp).
