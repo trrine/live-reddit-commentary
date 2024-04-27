@@ -5,14 +5,18 @@
 
 
 ## Description
-TO DO
+The Live Reddit Commentary Chrome extension allows you to effortlessly view real-time comments from Reddit discussions directly within your browser. Perfect for staying engaged during live TV show streams and episode discussions, this extension keeps you connected with the conversation without the need to constantly keep checking Reddit and refreshing the page. Simply enter the URL of a live discussion post on Reddit, set the display delay and lag time, and start receiving live commentary as it happens.
 
+### Features:
+- View real-time comments from Reddit discussions during live TV show streams
+- Specify display delay and lag time for a customised experience
+- Easy-to-use interface directly integrated into the browser
 
 
 ## How to Use
 <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup.png" height="400"> <img src="https://github.com/trrine/live-reddit-commentary/blob/main/assets/popup_dark.png" height="400">
 
-TO DO
+
 
 ### Limitations
 The Reddit API only allows fetching the 1000 most recent comments on a post. For this reason, this extension is best suited for watching live-streamed rather than recorded TV content - even with the lag option.
